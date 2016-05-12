@@ -14,6 +14,12 @@ Route::group(['middleware' => ['api']],function(){
 
   ]);
 
+  Route::get('/section', [
+
+    'uses' => 'Forum\SectionController@index',
+
+  ]);
+
   Route::group(['middleware' => 'jwt.auth'], function(){
 
     Route::get('/user',[
