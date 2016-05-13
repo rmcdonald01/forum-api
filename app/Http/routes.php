@@ -20,11 +20,26 @@ Route::group(['middleware' => ['api']],function(){
 
   ]);
 
+
+  Route::get('topic',[
+    'uses'  =>  'Forum\TopicController@index',
+  ]);
+
+  Route::get('topic/{topic}',[
+    'uses'  =>  'Forum\TopicController@show',
+  ]);
+
   Route::group(['middleware' => 'jwt.auth'], function(){
 
     Route::get('/user',[
       'uses' => 'UserController@index',
     ]);
+
+
+    Route::post('topic',[
+      'uses' => 'Forum\TopicController@store'
+    ]);
+
 
   });
 
