@@ -9,25 +9,58 @@ use App\Models\Topic;
 
 use App\Models\Section;
 
+use App\Models\User;
+
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 
+use App\Transformers\TopicTransformer;
+
+use App\Http\Requests\Forum\CreateTopicFormRequest;
+
+use App\Http\Requests\Forum\GetTopicsFormRequest;
 
 class TopicController extends Controller
 {
-      public function index(Request $request, Section $section)
+      public function index(GetTopicsFormRequest $request, Section $section)
       {
-          dd('index');
+          $topics = $section->find($request->get('section_id'))->topics()->latestFirst()->get();
+
+          return fractal()
+                  ->collection($topics)
+                  ->includeUser()
+                  ->transformWith(new TopicTransformer)
+                  ->toArray();
       }
 
       public function show(Topic $topic)
       {
-          dd('show');
+          return fractal()
+                  ->item($topic)
+                  ->includeUser()
+                  ->transformWith(new TopicTransformer)
+                  ->toArray();
+
       }
 
-      public function store(Request $request)
+
+      public function store(CreateTopicFormRequest $request)
       {
-          dd('store');
+          $topic = $request->user()->topics()->create([
+
+            'title'       =>  $request->json('title'),
+            'slug'        =>  str_slug($request->json('title')),
+            'body'        =>  $request->json('body'),
+            'section_id'  =>  $request->json('section_id'),
+
+          ]);
+
+        return fractal()
+                ->item($topic)
+                ->includeUser()
+                ->transformWith(new TopicTransformer)
+                ->toArray();
+
       }
 }

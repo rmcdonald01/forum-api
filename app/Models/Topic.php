@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Model\User;
+use App\Models\User;
 
 use App\Models\Section;
 
@@ -17,6 +17,11 @@ class Topic extends Model
         'section_id',
     ];
 
+
+    public function scopeLatestFirst($query)
+    {
+      return $query->orderBy('created_at','desc');
+    }
 
     public function user()
     {

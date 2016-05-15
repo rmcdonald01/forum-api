@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Topic;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
 
 class User extends Authenticatable
 {
@@ -28,5 +31,10 @@ class User extends Authenticatable
     public function avatar()
     {
       require 'http://gravatar.com/avatar/'.md5($this->email).'?s=35&d=mm';
+    }
+
+    public function topics()
+    {
+      return $this->hasMany(Topic::class);
     }
 }
