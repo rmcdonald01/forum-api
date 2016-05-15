@@ -40,6 +40,11 @@ Route::group(['middleware' => ['api']],function(){
       'uses' => 'Forum\TopicController@store'
     ]);
 
+    Route::post('topic/{topic}/post',[
+      'uses' => 'Forum\PostController@store'
+    ]);
+
+
 
   });
 

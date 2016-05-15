@@ -39,6 +39,7 @@ class TopicController extends Controller
           return fractal()
                   ->item($topic)
                   ->includeUser()
+                  ->includePosts()
                   ->transformWith(new TopicTransformer)
                   ->toArray();
 

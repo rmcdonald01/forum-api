@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
 
+use App\Models\Post;
+
 use App\Models\Section;
 
 class Topic extends Model
@@ -33,4 +35,10 @@ class Topic extends Model
     {
       return $this->belongsTo(Section::class);
     }
+
+    public function posts()
+    {
+      return $this->hasMany(Post::class);
+    }
+
 }
