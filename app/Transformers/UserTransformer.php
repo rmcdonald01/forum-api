@@ -14,7 +14,7 @@ class UserTransformer extends TransformerAbstract
     {
         return [
           'username'  =>  $user->username,
-          //'avatar'    =>  $user->avatar(),
+          'avatar'    =>  $user->avatar(),
         ];
     }
 

@@ -14,7 +14,7 @@ Route::group(['middleware' => ['api']],function(){
 
   ]);
 
-  Route::get('/section', [
+  Route::get('/sections', [
 
     'uses' => 'Forum\SectionController@index',
 
